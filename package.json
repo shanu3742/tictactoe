@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "eslint-plugin-react-hooks": "^4.2.0",
+    "node-sass": "^6.0.0",
     "parcel-bundler": "^1.12.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
