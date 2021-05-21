@@ -9,6 +9,9 @@ const Board = () => {
   const [isXNext, setXNext] = useState(false);
 
   const handleSquareClick = poistion => {
+    if (board[poistion]) {
+      return;
+    }
     setboard(prev => {
       return prev.map((square, pos) => {
         if (pos === poistion) {
