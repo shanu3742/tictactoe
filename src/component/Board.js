@@ -4,15 +4,20 @@ import Square from './Square';
 const Board = () => {
   const [board, setboard] = useState(Array(9).fill(null));
 
+  // set next clicked
+
+  const [isXNext, setXNext] = useState(false);
+
   const handleSquareClick = poistion => {
     setboard(prev => {
       return prev.map((square, pos) => {
         if (pos === poistion) {
-          return 'x';
+          return isXNext ? 'x' : 'o';
         }
         return square;
       });
     });
+    setXNext(prev => !prev);
   };
   const rendersquare = poistion => {
     return (
