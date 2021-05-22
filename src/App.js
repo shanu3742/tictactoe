@@ -17,6 +17,12 @@ const App = () => {
   const winner = calculateWinner(board);
   let message = null;
   // console.log(winner);
+  if (winner === null) {
+    message = 'Start Playing';
+  }
+  if (!winner) {
+    message = `${isXNext ? Secondplayer : Firstplayer} Term`;
+  }
   if (winner === 'o') {
     message = `${Firstplayer} win`;
   } else if (winner === 'x') {
@@ -24,7 +30,7 @@ const App = () => {
   }
 
   const handleSquareClick = poistion => {
-    if (board[poistion]) {
+    if (board[poistion] || winner) {
       return;
     }
     setboard(prev => {
