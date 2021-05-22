@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Board from './component/Board';
+import History from './History';
 import { calculateWinner } from './helpers';
 import './style/root.scss';
 
@@ -18,7 +19,6 @@ const App = () => {
   // it check if any board is not fill with o and x it set to be false else true
 
   const noMoveLeft = current.board.every(el => el != null);
-  console.log(noMoveLeft);
 
   // winner calculate
 
@@ -56,11 +56,24 @@ const App = () => {
     });
     setCurrentMove(prev => prev + 1);
   };
+  const moveTo = move => {
+    setCurrentMove(move);
+  };
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <h2>{message}</h2>
       <Board board={current.board} handleSquareClick={handleSquareClick} />
+      <History history={history} moveTo={moveTo} currentMove={currentMove} />
+      <h4>
+        Developed By{' '}
+        <span
+          style={{ color: 'white', background: 'red', borderRadius: '50%' }}
+        >
+          @
+        </span>
+        <span style={{ color: 'green' }}>Shanu</span>
+      </h4>
     </div>
   );
 };
