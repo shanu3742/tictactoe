@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+
 import Board from './component/Board';
 import { calculateWinner } from './helpers';
 import './style/root.scss';
 
 const Firstplayer = prompt('Enter Firstplayer name');
 const Secondplayer = prompt('Enter Secondplayer name');
+
 const App = () => {
   const [board, setboard] = useState(Array(9).fill(null));
+
+  // it check if any board is not fill with o and x it set to be false else true
+
+  const noMoveLeft = board.every(el => el != null);
 
   // set next clicked
 
@@ -17,12 +23,14 @@ const App = () => {
   const winner = calculateWinner(board);
   let message = null;
   // console.log(winner);
-  if (winner === null) {
-    message = 'Start Playing';
-  }
-  if (!winner) {
+
+  if (!winner && !noMoveLeft) {
     message = `${isXNext ? Secondplayer : Firstplayer} Term`;
   }
+  if (!winner && noMoveLeft) {
+    message = `Draw B/W ${Firstplayer} and ${Secondplayer}`;
+  }
+
   if (winner === 'o') {
     message = `${Firstplayer} win`;
   } else if (winner === 'x') {
@@ -38,6 +46,7 @@ const App = () => {
         if (pos === poistion) {
           return isXNext ? 'x' : 'o';
         }
+
         return square;
       });
     });
