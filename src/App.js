@@ -8,24 +8,26 @@ const Firstplayer = prompt('Enter Firstplayer name');
 const Secondplayer = prompt('Enter Secondplayer name');
 
 const App = () => {
-  const [board, setboard] = useState(Array(9).fill(null));
+  const [history, setHistory] = useState([
+    { board: Array(9).fill(null), isXNext: false },
+  ]);
+
+  const [currentMove, setCurrentMove] = useState(0);
+  const current = history[currentMove];
 
   // it check if any board is not fill with o and x it set to be false else true
 
-  const noMoveLeft = board.every(el => el != null);
-
-  // set next clicked
-
-  const [isXNext, setXNext] = useState(false);
+  const noMoveLeft = current.board.every(el => el != null);
+  console.log(noMoveLeft);
 
   // winner calculate
 
-  const winner = calculateWinner(board);
+  const winner = calculateWinner(current.board);
   let message = null;
   // console.log(winner);
 
   if (!winner && !noMoveLeft) {
-    message = `${isXNext ? Secondplayer : Firstplayer} Term`;
+    message = `${current.isXNext ? Secondplayer : Firstplayer} Term`;
   }
   if (!winner && noMoveLeft) {
     message = `Draw B/W ${Firstplayer} and ${Secondplayer}`;
@@ -38,25 +40,27 @@ const App = () => {
   }
 
   const handleSquareClick = poistion => {
-    if (board[poistion] || winner) {
+    if (current.board[poistion] || winner) {
       return;
     }
-    setboard(prev => {
-      return prev.map((square, pos) => {
+    setHistory(prev => {
+      const last = prev[prev.length - 1];
+      const newBoard = last.board.map((square, pos) => {
         if (pos === poistion) {
-          return isXNext ? 'x' : 'o';
+          return last.isXNext ? 'x' : 'o';
         }
 
         return square;
       });
+      return prev.concat({ board: newBoard, isXNext: !last.isXNext });
     });
-    setXNext(prev => !prev);
+    setCurrentMove(prev => prev + 1);
   };
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <h2>{message}</h2>
-      <Board board={board} handleSquareClick={handleSquareClick} />
+      <Board board={current.board} handleSquareClick={handleSquareClick} />
     </div>
   );
 };
