@@ -80,6 +80,7 @@ const App = () => {
       <h1>
         Tic <span className="text-green">Tac</span> Toe
       </h1>
+
       <h2>{message}</h2>
       <Board
         board={current.board}
