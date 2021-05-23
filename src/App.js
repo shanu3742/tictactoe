@@ -22,7 +22,7 @@ const App = () => {
 
   // winner calculate
 
-  const winner = calculateWinner(current.board);
+  const { winner, winningSquares } = calculateWinner(current.board);
   let message = null;
   // console.log(winner);
 
@@ -59,11 +59,21 @@ const App = () => {
   const moveTo = move => {
     setCurrentMove(move);
   };
+  function refreshPage() {
+    window.location.reload();
+  }
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <h2>{message}</h2>
-      <Board board={current.board} handleSquareClick={handleSquareClick} />
+      <Board
+        board={current.board}
+        handleSquareClick={handleSquareClick}
+        winningSquares={winningSquares}
+      />
+      <button type="button" onClick={refreshPage}>
+        Start new Game
+      </button>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
       <h4>
         Developed By{' '}
