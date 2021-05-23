@@ -30,13 +30,26 @@ const App = () => {
     message = `${current.isXNext ? Secondplayer : Firstplayer} Term`;
   }
   if (!winner && noMoveLeft) {
-    message = `Draw B/W ${Firstplayer} and ${Secondplayer}`;
+    message = (
+      <>
+        Draw B/W <span style={{ color: 'red' }}> {Firstplayer}</span> and
+        <span style={{ color: 'red' }}> {Secondplayer}</span>
+      </>
+    );
   }
 
   if (winner === 'o') {
-    message = `${Firstplayer} win`;
+    message = (
+      <>
+        Winner is <span className="text-green">{Firstplayer}</span>
+      </>
+    );
   } else if (winner === 'x') {
-    message = `${Secondplayer} win`;
+    message = (
+      <>
+        Winner is <span className="text-orange">{Firstplayer}</span>
+      </>
+    );
   }
 
   const handleSquareClick = poistion => {
@@ -64,26 +77,34 @@ const App = () => {
   }
   return (
     <div className="app">
-      <h1>Tic Tac Toe</h1>
+      <h1>
+        Tic <span className="text-green">Tac</span> Toe
+      </h1>
       <h2>{message}</h2>
       <Board
         board={current.board}
         handleSquareClick={handleSquareClick}
         winningSquares={winningSquares}
       />
-      <button type="button" onClick={refreshPage}>
+      <button
+        type="button"
+        className={`btn-reset ${winner ? 'active' : ''}`}
+        onClick={refreshPage}
+      >
         Start new Game
       </button>
+      <h2 style={{ fontWeight: 'normal' }}>Current Game history</h2>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
       <h4>
         Developed By{' '}
         <span
-          style={{ color: 'white', background: 'red', borderRadius: '50%' }}
+          style={{ color: 'green', background: 'red', borderRadius: '50%' }}
         >
           @
         </span>
-        <span style={{ color: 'green' }}>Shanu</span>
+        <span style={{ color: 'white' }}>Shanu</span>
       </h4>
+      <div className="bg-balls" />
     </div>
   );
 };
